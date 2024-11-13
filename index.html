@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Jose's Portfolio</title>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dropdown with Pop-up</title>
     <style>
@@ -43,7 +43,7 @@
     <a href="https://www.amazon.com/dp/B0C6B6Y2HB/?coliid=I31K92DUPL9YXM&colid=3RXD1V995YX6A&psc=1&ref_=list_c_wl_gv_ov_lig_pi_dp" Target="_black"><img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" alt="happy dance" /></a>
     <p id=bottom>Bottom of Page</p>
     <!-- Dropdown for selecting a status -->
-    <label for="statusDropdown">Ticekt Type:</label>
+    <label for="statusDropdown">Select a status:</label>
     <select id="statusDropdown" onchange="checkStatus()">
         <option value="">--Select--</option>
         <option value="Normal">Normal</option>
@@ -62,7 +62,7 @@
 
     <!-- Checkbox for Spanish language -->
     <label>
-        <input type="checkbox" id="languageCheckbox"> Spanish Call
+        <input type="checkbox" id="languageCheckbox"> Call is in Spanish
     </label>
 
     <br><br>
@@ -79,22 +79,36 @@
             const status = document.getElementById("statusDropdown").value;
             const isSpanish = document.getElementById("languageCheckbox").checked;
 
-            // If the selected status is either "Emergency" or "Non-Compliant"
+            // If the selected status is "Emergency" or "Non-Compliant"
             if (status === "Emergency" || status === "Non-Compliant") {
-                showPopup(isSpanish);
+                showPopup(status, isSpanish);
             }
         }
 
-        function showPopup(isSpanish) {
+        function showPopup(status, isSpanish) {
             const popupMessage = document.getElementById("popupMessage");
             const overlay = document.getElementById("overlay");
             const popup = document.getElementById("popup");
 
-            // Set the message based on the language selection
-            if (isSpanish) {
-                popupMessage.textContent = "El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?";
-            } else {
-                popupMessage.textContent = "The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?";
+            // Set the message based on the selected status and language
+            if (status === "Non-Compliant") {
+                if (isSpanish) {
+                    popupMessage.textContent = "La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil.
+
+¿Desea cambiar la hora de inicio?";
+                } else {
+                    popupMessage.textContent = "The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty.
+
+Do you wish to change the start time?";
+                }
+            } else if (status === "Emergency") {
+                if (isSpanish) {
+                    popupMessage.textContent = "El Estado de Texas define una Excavación de Emergencia como aquella que involucra
+peligro para la vida, la salud o la propiedad. Tu trabajo cumple con ese criterio?";
+                } else {
+                    popupMessage.textContent = "The State of Texas defines an Emergency Excavation as one involving
+danger to life, health or property. Does your work meet that criteria?";
+                }
             }
 
             // Show the pop-up and overlay
