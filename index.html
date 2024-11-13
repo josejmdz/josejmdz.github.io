@@ -43,7 +43,7 @@
     <a href="https://www.amazon.com/dp/B0C6B6Y2HB/?coliid=I31K92DUPL9YXM&colid=3RXD1V995YX6A&psc=1&ref_=list_c_wl_gv_ov_lig_pi_dp" Target="_black"><img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" alt="happy dance" /></a>
     <p id=bottom>Bottom of Page</p>
     <!-- Dropdown for selecting a status -->
-    <label for="statusDropdown">Select a status:</label>
+    <label for="statusDropdown">Ticekt Type:</label>
     <select id="statusDropdown" onchange="checkStatus()">
         <option value="">--Select--</option>
         <option value="Normal">Normal</option>
@@ -62,7 +62,7 @@
 
     <!-- Checkbox for Spanish language -->
     <label>
-        <input type="checkbox" id="languageCheckbox"> Call is in Spanish
+        <input type="checkbox" id="languageCheckbox"> Spanish Call
     </label>
 
     <br><br>
@@ -92,9 +92,9 @@
 
             // Set the message based on the language selection
             if (isSpanish) {
-                popupMessage.textContent = "Este es el mensaje en español: Acción necesaria debido a un incumplimiento o emergencia.";
+                popupMessage.textContent = "El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?";
             } else {
-                popupMessage.textContent = "This is the English message: Action required due to non-compliance or emergency.";
+                popupMessage.textContent = "The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?";
             }
 
             // Show the pop-up and overlay
