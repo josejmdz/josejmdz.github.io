@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>Jose's Portfolio</title>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pop-up Message with Language Option</title>
+    <title>Dropdown with Pop-up</title>
     <style>
         /* Style for the pop-up */
         .popup {
@@ -42,43 +42,64 @@
     <p>Welcome to my first ever website!</p>
     <a href="https://www.amazon.com/dp/B0C6B6Y2HB/?coliid=I31K92DUPL9YXM&colid=3RXD1V995YX6A&psc=1&ref_=list_c_wl_gv_ov_lig_pi_dp" Target="_black"><img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" alt="happy dance" /></a>
     <p id=bottom>Bottom of Page</p>
-    <!-- Checkbox to select if the call is in Spanish -->
+    <!-- Dropdown for selecting a status -->
+    <label for="statusDropdown">Select a status:</label>
+    <select id="statusDropdown" onchange="checkStatus()">
+        <option value="">--Select--</option>
+        <option value="Normal">Normal</option>
+        <option value="Non-Compliant">Non-Compliant</option>
+        <option value="No-Response">No-Response</option>
+        <option value="Recall">Recall</option>
+        <option value="Update">Update</option>
+        <option value="Update & Remark">Update & Remark</option>
+        <option value="Cancellation">Cancellation</option>
+        <option value="Emergency">Emergency</option>
+        <option value="Digup">Digup</option>
+        <option value="Survey & Design">Survey & Design</option>
+    </select>
+
+    <br><br>
+
+    <!-- Checkbox for Spanish language -->
     <label>
-        <input type="checkbox" id="languageCheckbox"> Spanish Call
+        <input type="checkbox" id="languageCheckbox"> Call is in Spanish
     </label>
 
-    <!-- Button to trigger pop-up -->
-    <button onclick="showPopup()">Show Message</button>
+    <br><br>
 
-    <!-- Overlay for the pop-up -->
+    <!-- Pop-up and Overlay -->
     <div id="overlay" class="overlay" onclick="closePopup()"></div>
-
-    <!-- Pop-up message -->
     <div id="popup" class="popup">
-        <p id="popupMessage">This is the English message!</p>
+        <p id="popupMessage"></p>
         <button onclick="closePopup()">Close</button>
     </div>
 
     <script>
-        function showPopup() {
-            // Get checkbox value
+        function checkStatus() {
+            const status = document.getElementById("statusDropdown").value;
             const isSpanish = document.getElementById("languageCheckbox").checked;
 
-            // Select the popup message element
-            const popupMessage = document.getElementById("popupMessage");
+            // If the selected status is either "Emergency" or "Non-Compliant"
+            if (status === "Emergency" || status === "Non-Compliant") {
+                showPopup(isSpanish);
+            }
+        }
 
-            // Change the message based on the checkbox selection
+        function showPopup(isSpanish) {
+            const popupMessage = document.getElementById("popupMessage");
+            const overlay = document.getElementById("overlay");
+            const popup = document.getElementById("popup");
+
+            // Set the message based on the language selection
             if (isSpanish) {
-                // Spanish translation
-                popupMessage.textContent = "El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?";
+                popupMessage.textContent = "Este es el mensaje en español: Acción necesaria debido a un incumplimiento o emergencia.";
             } else {
-                // English message
-                popupMessage.textContent = "The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?";
+                popupMessage.textContent = "This is the English message: Action required due to non-compliance or emergency.";
             }
 
             // Show the pop-up and overlay
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("overlay").style.display = "block";
+            popup.style.display = "block";
+            overlay.style.display = "block";
         }
 
         function closePopup() {
