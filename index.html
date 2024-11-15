@@ -2,26 +2,86 @@
 <html>
   <head>
     <title>Jose's Portfolio</title>
-     <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkbox and Dropdown</title>
+    <style>
+        /* Modal background */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
     <script>
+        function showModal(message) {
+            const modal = document.getElementById("myModal");
+            const modalMessage = document.getElementById("modalMessage");
+            modalMessage.innerText = message;
+            modal.style.display = "block";
+        }
+
         function handleDropdownChange() {
             const isSpanishCall = document.getElementById("spanishCall").checked;
             const dropdownValue = document.getElementById("dropdown").value;
 
             if (!isSpanishCall) {
                 if (dropdownValue === "Emergency") {
-                    alert("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
+                    showModal("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    alert("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
+                    showModal("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
                 }
             } else {
                 if (dropdownValue === "Emergency") {
-                    alert("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
+                    showModal("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    alert("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
+                    showModal("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
                 }
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
             }
         }
     </script>
@@ -57,5 +117,13 @@
             <option value="Digup">Digup</option>
         </select>
     </form>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
   </body>
 </html>
