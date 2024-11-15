@@ -5,53 +5,47 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkbox and Dropdown</title>
-    <style>
-        /* Modal background */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        /* Modal content */
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Close button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-    </style>
     <script>
-        function showModal(message) {
-            const modal = document.getElementById("myModal");
-            const modalMessage = document.getElementById("modalMessage");
-            modalMessage.innerText = message;
-            modal.style.display = "block";
+        function openPopup(message) {
+            const popup = window.open("", "PopupWindow", "width=400,height=300,scrollbars=no,resizable=no");
+            popup.document.write(`
+                <html>
+                    <head>
+                        <title>Notification</title>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                text-align: center;
+                                padding: 20px;
+                                background-color: #f4f4f4;
+                                margin: 0;
+                            }
+                            h1 {
+                                font-size: 18px;
+                                color: #333;
+                            }
+                            button {
+                                padding: 10px 20px;
+                                font-size: 16px;
+                                color: white;
+                                background-color: #007BFF;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                margin-top: 20px;
+                            }
+                            button:hover {
+                                background-color: #0056b3;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>${message}</h1>
+                        <button onclick="window.close()">Close</button>
+                    </body>
+                </html>
+            `);
+            popup.document.close();
         }
 
         function handleDropdownChange() {
@@ -60,28 +54,16 @@
 
             if (!isSpanishCall) {
                 if (dropdownValue === "Emergency") {
-                    showModal("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
+                    openPopup("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    showModal("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
+                    openPopup("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
                 }
             } else {
                 if (dropdownValue === "Emergency") {
-                    showModal("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
+                    openPopup("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    showModal("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
+                    openPopup("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
                 }
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById("myModal");
-            if (event.target === modal) {
-                modal.style.display = "none";
             }
         }
     </script>
@@ -96,7 +78,7 @@
     </ul>
     <!-- <a href="https://www.amazon.com/dp/B0C6B6Y2HB/?coliid=I31K92DUPL9YXM&colid=3RXD1V995YX6A&psc=1&ref_=list_c_wl_gv_ov_lig_pi_dp" Target="_black"><img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" alt="happy dance" /></a>
     <p id=bottom>Bottom of Page</p> -->
-    <form>
+<form>
         <label>
             <input type="checkbox" id="spanishCall">
             Spanish Call
@@ -117,13 +99,5 @@
             <option value="Digup">Digup</option>
         </select>
     </form>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p id="modalMessage"></p>
-        </div>
-    </div>
   </body>
 </html>
