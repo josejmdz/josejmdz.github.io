@@ -5,47 +5,61 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkbox and Dropdown</title>
+    <style>
+        /* Pop-up style */
+        #popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #888;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+            width: 50%;
+        }
+
+        /* Background overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
     <script>
-        function openPopup(message) {
-            const popup = window.open("", "PopupWindow", "width=400,height=300,scrollbars=no,resizable=no");
-            popup.document.write(`
-                <html>
-                    <head>
-                        <title>Notification</title>
-                        <style>
-                            body {
-                                font-family: Arial, sans-serif;
-                                text-align: center;
-                                padding: 20px;
-                                background-color: #f4f4f4;
-                                margin: 0;
-                            }
-                            h1 {
-                                font-size: 18px;
-                                color: #333;
-                            }
-                            button {
-                                padding: 10px 20px;
-                                font-size: 16px;
-                                color: white;
-                                background-color: #007BFF;
-                                border: none;
-                                border-radius: 5px;
-                                cursor: pointer;
-                                margin-top: 20px;
-                            }
-                            button:hover {
-                                background-color: #0056b3;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <h1>${message}</h1>
-                        <button onclick="window.close()">Close</button>
-                    </body>
-                </html>
-            `);
-            popup.document.close();
+        function showPopup(message) {
+            document.getElementById("popupMessage").innerText = message;
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
         }
 
         function handleDropdownChange() {
@@ -54,15 +68,15 @@
 
             if (!isSpanishCall) {
                 if (dropdownValue === "Emergency") {
-                    openPopup("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
+                    showPopup("The State of Texas defines an Emergency Excavation as one involving danger to life, health or property. Does your work meet that criteria?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    openPopup("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
+                    showPopup("The start date and time you have requested is not in compliance with Texas State law, which requires 48 hours notice prior to excavating. If you start work prior to the required time, you will be in violation of the law and subject to a civil penalty. Do you wish to change the start time?");
                 }
             } else {
                 if (dropdownValue === "Emergency") {
-                    openPopup("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
+                    showPopup("El Estado de Texas define una excavación de emergencia como aquella que implica peligro para la vida, la salud o la propiedad. ¿Tu trabajo cumple con ese criterio?");
                 } else if (dropdownValue === "Non-Compliant") {
-                    openPopup("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
+                    showPopup("La fecha y hora de inicio que ha solicitado no cumple con la ley del estado de Texas, que requiere un aviso de 48 horas antes de excavar. Si comienza a trabajar antes del tiempo requerido, estará violando la ley y estará sujeto a una sanción civil. ¿Desea cambiar la hora de inicio?");
                 }
             }
         }
@@ -99,5 +113,14 @@
             <option value="Digup">Digup</option>
         </select>
     </form>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Pop-up -->
+    <div id="popup">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
   </body>
 </html>
